@@ -40,10 +40,9 @@ public class StudentService {
                 students.set(i, student);
                 return;
             }
-            else {
-                throw new IllegalArgumentException("Student with id " + student.getId() + " does not exist");
-            }
         }
+
+        throw new IllegalArgumentException("Student with id " + student.getId() + " does not exist");
     }
 
     public boolean deleteStudent(long id) {
