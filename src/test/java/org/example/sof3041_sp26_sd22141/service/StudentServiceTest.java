@@ -49,4 +49,40 @@ class StudentServiceTest {
         assertEquals("Mark must be between 0 and 10", exception.getMessage());
     }
 
+    // update
+    @Test
+    void updateStudentWithValidStudent() {
+
+        Student student = new Student(1, "A", 20, 9.0);
+        studentService.addStudent(student);
+
+        student.setName("B");
+        student.setAge(21);
+        student.setMark(8.0);
+
+        studentService.updateStudent(student);
+
+        assertEquals("B", studentService.getStudentById(1).getName());
+        assertEquals(21, studentService.getStudentById(1).getAge());
+        assertEquals(8.0, studentService.getStudentById(1).getMark());
+    }
+
+    @Test
+    void updateStudentWithNull() {
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> studentService.updateStudent(null));
+        assertEquals("Student can not be null", exception.getMessage());
+    }
+
+    @Test
+    void updateStudentWithInvalidAge(){
+
+        Student student = new Student(1, "A", 20, 9.0);
+        studentService.addStudent(student);
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                studentService.updateStudent(new Student(1, "A", 17, 9.0)));
+        assertEquals("Age must be greater than 18", exception.getMessage());
+    }
+
 }
